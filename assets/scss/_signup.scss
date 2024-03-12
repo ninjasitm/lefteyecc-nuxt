@@ -1,0 +1,115 @@
+// Styling for the signup section
+section.signup {
+    position: relative;
+    .section-content-wrapper {
+        padding-right: 0px !important;
+    }
+    .section-heading-wrapper {
+        margin-left: 0 !important;
+    }
+    a {
+        color: #000;
+        text-transform: uppercase;
+        font-family: "Open Sans";
+        font-size: 16px;
+        line-height: 22px;
+    }
+    a.active {
+        font-weight: bold;
+    }
+    h1 {
+        font-size: 50px;
+        margin-top: 0;
+    }
+    .nav-tabs {
+        border-bottom: none;
+    }
+    .tab-content {
+        height: 100%;
+    }
+    .tab-content .tab-pane  {
+        align-self: center;
+    }
+    .carousel {
+        display: none;
+    }
+    .tab-content .tab-pane h1,
+    .carousel h1 {
+        font-size: 50px;
+        margin-top: 0;
+        font-family: 'Playfair Display', 'Helvetica', 'Arial', 'sans-serif';
+    }
+    .nav-tabs .nav-item {
+        padding: 10px 0;
+    }
+    .nav-tabs .nav-item .nav-link {
+        border: none;
+        border-radius: 0px
+    }
+    .badges {
+        .badge-link {
+            display: block;
+            margin-bottom: 25px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            img {
+                height: 60px;
+            }
+            @media(min-width: 768px) {
+                display: inline-block;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @media(max-width: 991.98px) {
+        h1 {
+            font-size: 64px;
+        }
+        .section-content-wrapper {
+            padding-right: 15px !important;
+        }
+        .section-heading-wrapper {
+            margin: 0 auto !important;
+        }
+        .section-heading-wrapper .section-heading {
+            margin-bottom: 30px;
+        }
+        .section-content {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
+
+        .tab-content,
+        .nav.nav-tabs {
+            display: none !important;
+        }
+        .carousel {
+            display: block;
+        }
+        .carousel-inner {
+            margin-bottom: 30px;
+        }
+        .carousel-indicators {
+            bottom: -15px;
+        }
+        .carousel-indicators li {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            margin: 0 10px;
+            background-color: $gray-light;
+        }
+        .carousel-indicators li.active {
+            background-color: $theme-primary;
+        }
+        .carousel-item {
+            text-align: center;
+            height: 650px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+    }
+}

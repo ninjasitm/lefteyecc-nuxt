@@ -12,12 +12,25 @@
   },
   "dependencies": {
     "nuxt": "^3.10.2",
+    "sass": "^1.71.1",
+    "sugar": "^2.0.6",
     "vue": "^3.4.19",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue-router-better-scroller": "^0.0.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240208.0",
+    "@iconify-json/logos": "^1.1.42",
+    "@iconify-json/mdi": "^1.1.64",
+    "@nuxt/devtools": "^1.0.4",
+    "@nuxt/image": "^1.1.0",
+    "@nuxtjs/color-mode": "^3.3.2",
+    "@nuxtjs/i18n": "8.0.0-beta.12",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "@unocss/nuxt": "^0.58.0",
+    "@vueuse/nuxt": "^10.7.0",
     "nitro-cloudflare-dev": "^0.0.7",
+    "unplugin-icons": "^0.18.5",
     "wrangler": "^3.28.3"
   }
 }

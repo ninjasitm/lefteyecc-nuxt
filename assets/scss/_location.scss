@@ -1,0 +1,36 @@
+// Styling for the location section
+section.location {
+    background-color: $theme-secondary;
+    .content-heading {
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        background-color: $theme-primary;
+        border-color: transparent;
+    }
+
+    .section-heading-time {
+        font-size: 24px !important;
+        text-align: center;
+        color: $theme-secondary;
+        flex: 0 0 50%;
+    }
+
+    iframe {
+        width: 100%;
+    }
+
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) {
+        .section-content {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
+
+        .alert {
+            flex-direction: column;
+        }
+    }
+}

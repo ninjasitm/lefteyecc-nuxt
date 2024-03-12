@@ -1,0 +1,23 @@
+// Styling for the download section
+section.instructors {
+    text-align: center;
+    .card .card-title {
+        color: $font-color-primary;
+        font-family: "Jimmy Script";
+        font-size: 51px;
+        line-height: 71px;
+        border-bottom: solid 2px $font-color-primary;
+    }
+
+    @media (max-width: 991.98px) {
+        .section-content {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
+
+        .card-img-top {
+            width: 65%;
+        }
+    }
+}

@@ -1,0 +1,141 @@
+// Styling for the features section
+section.features {
+    background-color: $theme-secondary;
+    color: #fff;
+    .content-heading {
+        margin-bottom: 20px;
+        p, h1 {
+            color: #fff;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        p {
+            margin-bottom: 0;
+        }
+    }
+    .device-container,
+    .feature-item {
+        max-width: 325px;
+        margin: 0 auto;
+        border: none;
+        border-right: solid 2px #3F58BC;
+    }
+    .feature-list div:last-of-type .feature-item {
+        border: none;
+    }
+    .device-container {
+        margin-bottom: 100px;
+        @media(min-width: 992px) {
+            margin-bottom: 0;
+        }
+    }
+
+    .feature-item {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        padding-right: 20px;
+        padding-bottom: 2px;
+        text-align: center;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        h3 {
+            color: #FFFFFF;
+            font-family: "Open Sans";
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 27px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        i {
+            font-size: 68px;
+            display: block;
+            margin-bottom: 15px;
+            background-color: $font-color-secondary;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.sans  {
+            color: #FFFFFF;
+            font-size: 16px;
+            line-height: 23px;
+            text-align: center;
+        }
+    }
+    .pricing .btn.signup {
+        background-color: $theme-primary;
+        color: $font-color-secondary;
+        color:$theme-secondary;
+        font-weight: bold;
+        line-height: 37px;
+    }
+
+    #courseSeats {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    #courseSeats strong {
+        font-size: 24px;
+    }
+
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) {
+        .section-content {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
+        .feature-item {
+            border: none;
+            border-bottom: solid 2px #3F58BC;
+            padding: 20px 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-right: 0;
+            padding-bottom: 2px;
+            height: auto;
+
+            h3 {
+                font-size: 20px;
+            }
+
+            p.sans  {
+                padding: 0 15px;
+                font-size: 18px;
+            }
+        }
+        .features .feature-item:last-child {
+            border: none;
+        }
+
+        .pricing {
+            padding-left: 20px;
+            padding-right: 20px;
+
+            .alert {
+                border-radius: 12px;
+                flex-direction: column;
+
+                .btn.signup {
+                    padding: 12px 30px;
+                }
+            }
+        }
+
+        .mbg  {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mbg .separator {
+            display: none;
+        }
+    }
+}

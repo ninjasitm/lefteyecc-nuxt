@@ -1,0 +1,207 @@
+@import "variables.scss";
+@import "mixins.scss";
+@import "global.scss";
+@import "navbar.scss";
+@import "masthead.scss";
+@import "signup.scss";
+@import "features.scss";
+@import "cta.scss";
+@import "contact.scss";
+@import "footer.scss";
+@import "instructors.scss";
+@import "testimonials.scss";
+@import "location.scss";
+@import "bootstrap-overrides.scss";
+@import "fonts.scss";
+
+* {
+	transition: all 250ms linear;
+}
+
+body {
+	background-color: #fff;
+	color: rgba(0, 0, 0, 0.8);
+	&.loading {
+		nav,
+		header,
+		section,
+		footer {
+			display: none !important;
+		}
+
+		.loading-indicator {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			animation: pulse 2.5s infinite;
+		}
+	}
+}
+
+.dark-mode body,
+.dark body {
+	background-color: #091a28;
+	color: #ebf4f1;
+}
+.sepia-mode body,
+.sepia body {
+	background-color: #f1e7d0;
+	color: #433422;
+}
+
+.loading-indicator {
+	border: none !important;
+	height: 100vh;
+	width: 100%;
+	position: fixed;
+	transition: all 250ms ease-in-out;
+	display: none;
+}
+
+.loading-indicator img {
+	height: 72px;
+}
+
+@keyframes fade {
+	0%,
+	100% {
+		opacity: 0;
+	}
+	25% {
+		opacity: 1;
+	}
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+	}
+
+	70% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.95);
+	}
+}
+
+#thank-you {
+	.fa {
+		color: #218838;
+		animation: rotatein 500ms ease-in-out;
+		font-size: 6rem;
+	}
+
+	h1,
+	h2 {
+		font-size: 1.5rem;
+	}
+
+	p {
+		font-size: 1rem;
+		font-family: "Open Sans", "Helvetica", sans-serif;
+		line-height: 1.5rem;
+	}
+
+	.modal-header,
+	.modal-footer {
+		border-color: green;
+	}
+
+	.btn-success {
+		font-size: 1.5rem;
+		color: #fff;
+		background-color: #218838;
+		border-color: #1e7e34;
+	}
+
+	.btn-success:hover {
+		background-color: #1e7e34;
+	}
+}
+
+@keyframes rotatein {
+	0% {
+		font-size: 1rem;
+	}
+	30% {
+		font-size: 3rem;
+	}
+	100% {
+		font-size: 6rem;
+		transform: rotate(720deg);
+	}
+}
+
+ul.list-social {
+	margin-bottom: 0;
+	li {
+		a {
+			font-size: 40px;
+			line-height: 80px;
+			display: block;
+			width: 80px;
+			height: 80px;
+			color: white;
+			border-radius: 100%;
+			font-family: "ITC Avant Garde", "Helvetica", sans-serif;
+			text-align: center;
+		}
+		&.social-twitter {
+			a {
+				background-color: $brand-twitter;
+				&:hover {
+					background-color: darken($brand-twitter, 5%);
+				}
+			}
+		}
+		&.social-facebook {
+			a {
+				background-color: $brand-facebook;
+				&:hover {
+					background-color: darken($brand-facebook, 5%);
+				}
+			}
+		}
+		&.social-linked-in {
+			a {
+				background-color: $brand-linked-in;
+				&:hover {
+					background-color: darken($brand-facebook, 5%);
+				}
+			}
+		}
+		&.social-google-plus {
+			a {
+				background-color: $brand-google-plus;
+				&:hover {
+					background-color: darken($brand-google-plus, 5%);
+				}
+			}
+		}
+	}
+}
+
+.constrained.container {
+	max-width: 800px;
+}
+
+/*
+  Enter and leave animations can use different
+  durations and timing functions.
+*/
+.slide-fade-enter-active {
+	transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+	transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+	transform: translateX(20px);
+	opacity: 0;
+}

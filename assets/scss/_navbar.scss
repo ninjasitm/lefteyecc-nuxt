@@ -1,0 +1,126 @@
+// Styling for the navbar
+#mainNav {
+    border-color: fade-out($gray-darker, .95);
+    background-color: transparent;
+    @include transition-all;
+    @include heading-font;
+    #navbarResponsive {
+        height: 56px;
+    }
+    .navbar-brand {
+        color: $theme-primary;
+        @include heading-font;
+        &:hover,
+        &:focus {
+            color: darken($theme-primary, 10%);
+        }
+    }
+    .navbar-toggler {
+        font-size: 12px;
+        padding: 8px 10px;
+        color: $gray-darker;
+    }
+    .navbar-nav {
+        > li {
+            padding: 0 0.5rem;
+            > a {
+                font-size: 14px;
+                @include alt-font;
+                &.active {
+                    color: $theme-primary !important;
+                    background-color: transparent;
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+            > a,
+            > a:focus {
+                color: $gray-base;
+                &:hover {
+                    color: $theme-primary;
+                }
+            }
+        }
+    }
+    @media (min-width: 992px) {
+        border-color: transparent;
+        background-color: transparent;
+        .navbar-brand {
+            color: fade(black, 70%);
+            &:hover,
+            &:focus {
+                color: black;
+            }
+        }
+        .navbar-nav > li > a,
+        .navbar-nav > li > a:focus {
+            color: fade-out(black, .3);
+            &:hover {
+                color: black;
+            }
+        }
+        &.navbar-shrink {
+            border-color: fade-out($gray-darker, .9);
+            background-color: #fff;
+            .navbar-brand {
+                color: $gray-darker;
+                &:hover,
+                &:focus {
+                    color: $theme-primary;
+                }
+            }
+            .navbar-nav > li > a,
+            .navbar-nav > li > a:focus {
+                color: $gray-darker;
+                &:hover {
+                    color: $theme-primary;
+                }
+            }
+        }
+    }
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) {
+        .navbar-brand img {
+            height: 30px;
+        }
+        #navbarResponsive {
+            text-align: center;
+            align-items: center;
+            transition: all 100ms linear;
+        }
+        #navbarResponsive.collapse.show {
+            height: calc(100vh - 56px);
+        }
+        #navbarResponsive.collapse.show .navbar-nav {
+            opacity: 1;
+            display: flex;
+            visibility: visible;
+        }
+        .navbar-nav {
+            align-items: stretch;
+            justify-content: center;
+            opacity: 0;
+            transition: all 500ms linear;
+            height: 100%;
+            visibility: hidden;
+        }
+        .navbar-nav > li > a {
+            font-size: 2rem;
+            line-height: 3rem;
+        }
+
+        .navbar-shrink {
+            border-color: rgba(34,34,34,.1);
+            background-color: #fff !important;
+        }
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+    #mainNav.navbar-shrink {
+        border-color: rgba(34,34,34,.1);
+        background-color: #fff !important;
+    }
+}

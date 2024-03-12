@@ -1,0 +1,166 @@
+// Styling for the masthead
+header.masthead {
+	position: relative;
+	width: 100%;
+	padding-top: 150px;
+	padding-bottom: 100px;
+	background: linear-gradient(
+		to left,
+		$masthead-primary 0%,
+		$masthead-secondary 100%
+	);
+	// background: linear-gradient(to left, $masthead-primary 0%, $masthead-secondary 100%);
+	background-size: cover;
+	background-repeat: no-repeat;
+	min-height: 100vh;
+	max-height: 800px;
+	.header-content {
+		margin-bottom: 100px;
+
+		text-align: center;
+		.btn.signup {
+			background-color: $theme-secondary;
+			color: $font-color-secondary;
+		}
+	}
+	.device-container {
+		max-width: 325px;
+		margin-right: auto;
+		margin-left: auto;
+		.screen img {
+			border-radius: 3px;
+		}
+	}
+
+	.banner-items-container {
+		height: 100%;
+	}
+
+	.constrained.container {
+		max-height: 600px;
+	}
+
+	.carousel {
+		height: 100%;
+		width: 100%;
+		.carousel-inner {
+			height: 100%;
+			overflow: visible;
+			.carousel-item {
+				background-repeat: no-repeat;
+				background-size: contain;
+				background-position: right bottom;
+				height: 100%;
+				animation: fadein 1250ms ease-in-out;
+				overflow: visible;
+				.card {
+					background-color: transparent;
+					height: 100%;
+					width: 100%;
+					border: none;
+					.card-body {
+						width: 100%;
+						background-color: transparent;
+						display: flex;
+						align-items: flex-end;
+						flex-direction: column;
+						justify-content: center;
+					}
+					.card-title {
+						font-family: "Jimmy Script";
+						border-bottom: solid 2px $font-color-primary;
+						text-align: left;
+						margin-bottom: 0px;
+					}
+					.card-text {
+						font-size: 16px;
+					}
+				}
+			}
+		}
+	}
+	@media (min-width: 992px) {
+		height: 600px;
+		min-height: 600px;
+		padding-top: 0;
+		padding-bottom: 0;
+
+		.header-content {
+			text-align: left;
+
+			h1 {
+				font-size: 50px;
+			}
+		}
+	}
+
+	// Medium devices (tablets, less than 992px)
+	@media (max-width: 991.98px) {
+		padding-top: 125px;
+		padding-bottom: 100px;
+		.banner-items-container {
+			position: absolute;
+			z-index: 0;
+			top: 0;
+			left: 0;
+			right: 0;
+			opacity: 0.1;
+			width: 100%;
+			padding: 0px;
+		}
+
+		.banner-items-container::after {
+			opacity: 0.5;
+		}
+		.carousel {
+			.carousel-inner {
+				padding: 0px;
+				.carousel-item {
+					background-repeat: no-repeat;
+					background-size: auto 100%;
+					background-position: left -15% bottom -50px;
+					.card {
+						.card-body {
+							justify-content: flex-end;
+						}
+					}
+				}
+			}
+		}
+	}
+	@keyframes fadein {
+		from {
+			opacity: 0;
+			transform: translateX(1000px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0px);
+		}
+	}
+}
+
+.dark {
+	header.masthead {
+		background: linear-gradient(
+			to left,
+			$masthead-dark-primary 0%,
+			$masthead-dark-secondary 100%
+		);
+		.carousel {
+			.carousel-inner {
+				.carousel-item {
+					.card {
+						.card-body {
+						}
+						.card-title {
+							border-bottom: solid 2px $font-color-secondary;
+						}
+						.card-text {
+						}
+					}
+				}
+			}
+		}
+	}
+}
