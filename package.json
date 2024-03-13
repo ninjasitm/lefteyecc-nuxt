@@ -11,12 +11,14 @@
     "deploy": "npm run build && wrangler pages deploy ./dist"
   },
   "dependencies": {
+    "google-photos-album-image-url-fetch": "^3.1.0",
     "nuxt": "^3.10.2",
     "sass": "^1.71.1",
     "sugar": "^2.0.6",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5",
-    "vue-router-better-scroller": "^0.0.0"
+    "vue-router-better-scroller": "^0.0.0",
+    "vue3-picture-swipe": "^3.0.6"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240208.0",
