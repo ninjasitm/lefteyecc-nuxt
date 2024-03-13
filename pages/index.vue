@@ -84,7 +84,7 @@ async function loadData(): Promise<void> {
 onMounted(async () => {
     setInterval(() => {
         state.showCurrentHeader = false;
-        state.config.title = Sugar.Array.sample(state.config.titles);
+        state.config.title = Sugar.Array.sample(state.config.titles || []);
         setTimeout(() => {
             state.showCurrentHeader = true;
         }, 1000);
