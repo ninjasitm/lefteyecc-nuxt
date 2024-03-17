@@ -2,7 +2,7 @@ import { useFetch } from "@vueuse/core";
 
 export function useApiHelper() {
     const config = useRuntimeConfig();
-    console.log("Config", config);
+    console.debug("Config", config);
 
     async function getData(endpoint: string, params: any = {}): Promise<any> {
         const searchParams = (new URLSearchParams(params)).toString();
@@ -13,7 +13,7 @@ export function useApiHelper() {
             console.error("API Error: ", error);
             throw error;
         }
-        console.log("API Data: ", data);
+        console.debug("API Data: ", data);
         return data.value;
     }
 

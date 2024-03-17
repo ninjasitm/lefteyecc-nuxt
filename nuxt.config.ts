@@ -36,9 +36,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiUrl: process.env.NUXT_API_URL,
     public: {
-      apiBase: process.env.NUXT_API_BASE,
-      homeId: process.env.NUXT_HOME_ID,
-      cdnBase: process.env.NUXT_CDN_BASE,
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+      homeId: process.env.NUXT_PUBLIC_HOME_ID,
+      cdnBase: process.env.NUXT_PUBLIC_CDN_BASE,
     }
   },
   hooks: {
