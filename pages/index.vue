@@ -113,7 +113,7 @@ onMounted(async () => {
                                 </Transition>
                             </h1>
                             <p
-                                class="mt-6 text-sm mr-3"
+                                class="mt-6 text-sm mr-3 text-inherit"
                                 v-html="state.config.description || 'Missing Description'"
                             ></p>
                         </div>

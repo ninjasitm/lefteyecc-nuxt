@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { cpSync } from 'node:fs';
+import path from 'node:path';
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
@@ -36,6 +39,13 @@ export default defineNuxtConfig({
       apiBase: '',
       homeId: '',
       cdnBase: '',
+    }
+  },
+  hooks: {
+    'nitro:build:public-assets': (nitro) => {
+      // copy email templates to .output/server/emails
+      const targetDir = path.join(nitro.options.output.serverDir, 'emails');
+      cpSync('./emails', targetDir, { recursive: true });
     }
   }
 })

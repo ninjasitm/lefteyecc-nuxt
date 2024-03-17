@@ -11,3 +11,10 @@
 .font-jimmy {
 	font-family: "Jimmy Script";
 }
+
+.text-inherit {
+	color: inherit !important;
+	* {
+		color: inherit !important;
+	}
+}

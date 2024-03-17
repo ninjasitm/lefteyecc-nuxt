@@ -27,7 +27,7 @@ function handleError() {
 				exist on this site.
 			</div>
 			<pre v-if="isDev">{{ error }}</pre>
-			<NuxtLink class="px4 py1 rounded" @click="handleError" href="#">
+			<NuxtLink class="px-4 py-1 rounded" @click="handleError" href="#">
 				Go Back
 			</NuxtLink>
 		</div>

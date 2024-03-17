@@ -2,6 +2,7 @@ import { useFetch } from "@vueuse/core";
 
 export function useApiHelper() {
     const config = useRuntimeConfig();
+    console.log("Config", config);
 
     async function getData(endpoint: string, params: any = {}): Promise<any> {
         const searchParams = (new URLSearchParams(params)).toString();
