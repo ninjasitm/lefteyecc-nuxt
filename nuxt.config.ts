@@ -34,11 +34,11 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    apiUrl: '',
+    apiUrl: process.env.NUXT_API_URL,
     public: {
-      apiBase: '',
-      homeId: '',
-      cdnBase: '',
+      apiBase: process.env.NUXT_API_BASE,
+      homeId: process.env.NUXT_HOME_ID,
+      cdnBase: process.env.NUXT_CDN_BASE,
     }
   },
   hooks: {
