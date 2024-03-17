@@ -33,7 +33,7 @@ const state: State = reactive({
     config: {
     },
     photos: computed((): any[] => {
-        return state.config.photos.map((photo: any) => {
+        return state.config.photos?.map((photo: any) => {
             return {
                 src: config.public.cdnBase + photo.replace(/^\//gm, ''),
                 thumbnail: config.public.cdnBase + photo.replace(/^\//gm, ''),
