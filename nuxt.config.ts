@@ -44,8 +44,8 @@ export default defineNuxtConfig({
   hooks: {
     'nitro:build:public-assets': (nitro) => {
       // copy email templates to .output/server/emails
-      const targetDir = path.join(nitro.options.output.serverDir, 'emails');
-      cpSync('./emails', targetDir, { recursive: true });
+      // const targetDir = path.join(nitro.options.output.serverDir, 'emails');
+      // cpSync('./emails', targetDir, { recursive: true });
     }
   }
 })
