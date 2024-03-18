@@ -38,6 +38,9 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
       homeId: process.env.NUXT_PUBLIC_HOME_ID,
+      nowId: process.env.NUXT_PUBLIC_NOW_ID,
+      usesId: process.env.NUXT_PUBLIC_USES_ID,
+      contentId: process.env.NUXT_PUBLIC_CONTENT_ID,
       cdnBase: process.env.NUXT_PUBLIC_CDN_BASE,
     }
   },

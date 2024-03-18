@@ -63,6 +63,13 @@ body {
 	height: 72px;
 }
 
+.open .hs-overlay-open,
+.hs-overlay.open .hs-overlay-open {
+	opacity: 1;
+	margin-top: 0px;
+	transition-duration: 500ms;
+}
+
 @keyframes fade {
 	0%,
 	100% {

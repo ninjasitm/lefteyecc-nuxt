@@ -5,11 +5,20 @@
 import Sugar from 'sugar';
 import { useJsonHelper } from '~/composables/json-helper';
 import { useApiHelper } from '~/composables/api-helper';
-import VuePictureSwipe from 'vue3-picture-swipe';
+import useModalHelper from "~/composables/modal-helper";
+import HeartIcon from "~icons/mdi/heart";
+import LostIcon from "~icons/mdi/chart-bubble";
+import TimeIcon from "~icons/mdi/timer-sand";
+// import VuePictureSwipe from 'vue3-picture-swipe';
+
 
 const config = useRuntimeConfig();
 const { parseProperties } = useJsonHelper();
 const { getOne } = useApiHelper();
+const { showImageModal, closeModal, homePhotos, homePhotoImage } = useModalHelper({
+    modalRef: 'homePhotos',
+    imageRef: 'homePhotoImage'
+});
 
 // Interface for state description
 interface State {
@@ -18,6 +27,7 @@ interface State {
     bannerItems: any[];
     config: any;
     photos: any[];
+    photosChunked: any[];
 }
 
 const state: State = reactive({
@@ -39,6 +49,9 @@ const state: State = reactive({
                 thumbnail: config.public.cdnBase + photo.replace(/^\//gm, ''),
             }
         });
+    }),
+    photosChunked: computed((): any[] => {
+        return Sugar.Array.inGroups(state.photos, 4);
     })
 });
 
@@ -76,8 +89,8 @@ const state: State = reactive({
  * Fetch the home page content through the API
  */
 async function loadData(): Promise<void> {
-    state.config = await getOne(`home/${config.public.homeId}`);
-    parseProperties(state.config, ['titles', 'photos']);
+    state.config = await getOne(`pageHome/${config.public.homeId}`);
+    parseProperties(state.config, ['titles', 'photos', 'lifeSoFar', 'lostIn', 'loverOf']);
     state.isLoading = false;
 }
 
@@ -99,7 +112,7 @@ onMounted(async () => {
 <template>
     <NuxtLoadingIndicator v-if="state.isLoading" />
     <template v-else>
-        <header class="masthead">
+        <header class="masthead z-1">
             <div class="constrained container h-full mx-auto">
                 <div class="grid grid-cols-[40%_60%] sm:grid-cols 1 h-full">
                     <div
@@ -133,9 +146,9 @@ onMounted(async () => {
                                     v-for="({ image, title, description }, index) in state.bannerItems"
                                     class="carousel-item d-flex justify-content-center"
                                     :style="{
-                                        backgroundImage: `url('${image}')`,
-                                        backgroundSize: '100% auto'
-                                    }"
+        backgroundImage: `url('${image}')`,
+        backgroundSize: '100% auto'
+    }"
                                 >
                                     <div class="card banner-item flex column">
                                         <div class="card-body">
@@ -152,18 +165,90 @@ onMounted(async () => {
                 </div>
             </div>
         </header>
+        <div v-if="state.config.body" class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-6">
+            <h1 class="text-2xl">about</h1>
+            <p v-html="state.config.body || 'Missing Body'"></p>
+        </div>
+        <div v-if="state.config.lifeSoFar || state.config.loverOf || state.config.lostIn" class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-6">
+            <div class="grid grid-flow-col auto-cols-max sm:grid-cols-1 gap-4 mt-9">
+                <div>
+                    <h2 class="text-xl flex"><TimeIcon class="mr-2"/>life so far ...</h2>
+                    <ul class="list-disc ml-6">
+                        <li v-for="item in state.config.lifeSoFar || []" class="my-2">
+                            <span class="text-lg">{{ item }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 class="text-xl flex"><HeartIcon class="mr-2"/> lover of ...</h2>
+                    <ul class="list-disc ml-6">
+                        <li v-for="item in state.config.loverOf || []" class="my-2">
+                            <span class="text-lg">{{ item }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 class="text-xl flex"><LostIcon class="mr-2"/> lost in ...</h2>
+                    <ul class="list-disc ml-6">
+                        <li v-for="item in state.config.lostIn || []" class="my-2">
+                            <span class="text-lg">{{ item }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div
             v-if="state.photos.length"
-            class="flex flex-col mt-6 constrained container mx-auto"
+            class="flex flex-col mt-6 constrained container mx-auto lg:px-0 sm:px-6 z-[1]"
         >
             <h2 class="text-2xl">recent photos</h2>
-            <vue-picture-swipe
+            <div class="w-full lg:columns-3 sm:columns-2 gap-4 mt-3">
+                <!-- <div v-for="column in state.posts"> -->
+                <div
+                    v-for="image in state.photos"
+                    class="relative cursor-pointer py-4 px-1 inline-block w-full group md:block mb-0 sm:mb-0 mr-6 rounded-lg transform group-hover:translate-x-0 group-hover:shadow group-hover:translate-y-0 transition duration-700 ease-out overflow-hidden"
+                    @click="showImageModal(image.src)"
+                >
+                    <img
+                        class="w-full h-full rounded-lg transform group-hover:scale-105 transition duration-700 ease-out cursor-pointer object-cover"
+                        :alt="image.alt || image.thumbnail"
+                        :src="image.thumbnail"
+                    >
+                </div>
+                <!-- </div> -->
+            </div>
+            <!-- <vue-picture-swipe
                 :items="state.photos"
                 :options="{ loop: true, bgOpacity: 0.2 }"
                 class="w-full h-full"
-            ></vue-picture-swipe>
+            ></vue-picture-swipe> -->
         </div>
 
+        <!-- The image Modal -->
+        <div
+            ref="homePhotos"
+            class="hs-overlay fixed hidden size-full top-0 start-0 z-[10000] overflow-x-hidden overflow-y-auto left-0
+                w-screen h-screen bg-black/70 flex
+                justify-center items-center"
+        >
+            <div class="relative hs-overlay-open:mt-0 hs-overlay-open hs-overlay-open:duration-500 mt-10 opacity-0 transition-all max-w-full">
+
+                <!-- The close button -->
+                <a
+                    class="fixed z-[10000] top-6 right-8 text-5xl font-bold cursor-pointer"
+                    style="color: #fff"
+                    @click="closeModal"
+                >
+                    ×
+                </a>
+
+                <!-- A big image will be displayed here -->
+                <img
+                    ref="homePhotoImage"
+                    class="max-w-[90vw] max-h-[90vh] object-cover"
+                />
+            </div>
+        </div>
     </template>
 </template>
 <style lang="scss">
@@ -178,4 +263,4 @@ onMounted(async () => {
         width: 100%;
     }
 }
-</style>
+</style>~/composables/modal-helper

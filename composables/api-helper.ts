@@ -4,7 +4,7 @@ export function useApiHelper() {
     const config = useRuntimeConfig();
     console.debug("Config", config);
 
-    async function getData(endpoint: string, params: any = {}): Promise<any> {
+    async function getAll(endpoint: string, params: any = {}): Promise<any> {
         const searchParams = (new URLSearchParams(params)).toString();
         const url = new URL(`${config.public.apiBase}${endpoint.replace(/^\//gm, '')}${searchParams.length ? `?${searchParams}` : ''}`);
         // console.log("API URL: ", url.toString());
@@ -18,11 +18,11 @@ export function useApiHelper() {
     }
 
     async function getOne(endpoint: string, params: any = {}): Promise<any> {
-        const result: any = await getData(`${endpoint}`, params);
+        const result: any = await getAll(`${endpoint}`, params);
         return result.data;
     }
     return {
-        getData,
+        getAll,
         getOne
     }
 }
