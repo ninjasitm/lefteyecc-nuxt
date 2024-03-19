@@ -9,11 +9,13 @@ const state = reactive({
 	menu: [
 		{
 			label: "home",
-			to: "/",
+			to: {
+				name: "index",
+			},
 		},
 		{
 			label: "content",
-			to: "/content",
+			to: { name: "content" },
 		},
 		// {
 		//     label: 'ideas',
@@ -21,11 +23,11 @@ const state = reactive({
 		// },
 		{
 			label: "now",
-			to: "/now",
+			to: { name: "now" },
 		},
 		{
 			label: "uses",
-			to: "/uses",
+			to: { name: "uses" },
 		},
 	],
 });
@@ -39,9 +41,9 @@ function onToggleColorMode() {
 		<div class="flex justify-between items-center w-full h-16">
 			<NuxtLink
 				v-slot="{ isActive }"
-				to="/"
 				title="Home"
 				class="font-jimmy text-3xl"
+				:to="{ name: 'index' }"
 			>
 				Malcolm Paul
 			</NuxtLink>

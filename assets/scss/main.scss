@@ -15,12 +15,10 @@
 @import "fonts.scss";
 
 * {
-	transition: all 250ms linear;
+	transition: all 150ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 body {
-	background-color: #fff;
-	color: rgba(0, 0, 0, 0.8);
 	&.loading {
 		nav,
 		header,
@@ -41,13 +39,13 @@ body {
 
 .dark-mode body,
 .dark body {
-	background-color: #091a28;
-	color: #ebf4f1;
+	background-color: $theme-secondary;
+	color: $font-color;
 }
 .sepia-mode body,
 .sepia body {
-	background-color: #f1e7d0;
-	color: #433422;
+	background-color: $theme-sepia-primary;
+	color: $theme-sepia-secondary;
 }
 
 .loading-indicator {
@@ -192,7 +190,7 @@ ul.list-social {
 }
 
 .constrained.container {
-	max-width: 800px;
+	max-width: 768px;
 }
 
 /*
@@ -211,4 +209,8 @@ ul.list-social {
 .slide-fade-leave-to {
 	transform: translateX(20px);
 	opacity: 0;
+}
+
+.router-link-active {
+	color: $theme-primary;
 }

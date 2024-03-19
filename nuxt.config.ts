@@ -3,6 +3,7 @@ import { cpSync } from 'node:fs';
 import path from 'node:path';
 
 export default defineNuxtConfig({
+  ssr: true,
   devtools: { enabled: true },
 
   nitro: {
@@ -22,6 +23,7 @@ export default defineNuxtConfig({
     fallback: 'system',
   },
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       link: [
         {
