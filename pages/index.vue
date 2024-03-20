@@ -176,7 +176,7 @@ onMounted(async () => {
                     <h2 class="text-xl flex"><TimeIcon class="mr-2"/>life so far ...</h2>
                     <ul class="list-disc ml-6">
                         <li v-for="item in state.config.lifeSoFar || []" class="my-2">
-                            <span class="text-lg">{{ item.value || item }}</span>
+                            <span class="text-lg">{{ item.value || item.lifeSoFar || item }}</span>
                         </li>
                     </ul>
                 </div>
@@ -184,7 +184,7 @@ onMounted(async () => {
                     <h2 class="text-xl flex"><HeartIcon class="mr-2"/> lover of ...</h2>
                     <ul class="list-disc ml-6">
                         <li v-for="item in state.config.loverOf || []" class="my-2">
-                            <span class="text-lg">{{ item.value || item }}</span>
+                            <span class="text-lg">{{ item.value ||item.loverOf || item }}</span>
                         </li>
                     </ul>
                 </div>
@@ -192,7 +192,7 @@ onMounted(async () => {
                     <h2 class="text-xl flex"><LostIcon class="mr-2"/> lost in ...</h2>
                     <ul class="list-disc ml-6">
                         <li v-for="item in state.config.lostIn || []" class="my-2">
-                            <span class="text-lg">{{ item.value || item }}</span>
+                            <span class="text-lg">{{ item.value || item.lostIn || item }}</span>
                         </li>
                     </ul>
                 </div>
