@@ -44,9 +44,10 @@ const state: State = reactive({
     },
     photos: computed((): any[] => {
         return state.config.photos?.map((photo: any) => {
+            const url = (photo instanceof Object ? photo.url || photo.value || photo.photos : photo) || '';
             return {
-                src: config.public.cdnBase + photo.replace(/^\//gm, ''),
-                thumbnail: config.public.cdnBase + photo.replace(/^\//gm, ''),
+                src: config.public.cdnBase + url.replace(/^\//gm, ''),
+                thumbnail: config.public.cdnBase + url.replace(/^\//gm, ''),
             }
         });
     }),
@@ -122,7 +123,7 @@ onMounted(async () => {
                         <div class="header-content">
                             <h1 style="height: 56px">
                                 <Transition name="slide-fade">
-                                    <span v-if="state?.showCurrentHeader">{{ state.config.title }}!</span>
+                                    <span v-if="state?.showCurrentHeader">{{ state.config.title.value || state.config.title }}!</span>
                                 </Transition>
                             </h1>
                             <p
@@ -175,7 +176,7 @@ onMounted(async () => {
                     <h2 class="text-xl flex"><TimeIcon class="mr-2"/>life so far ...</h2>
                     <ul class="list-disc ml-6">
                         <li v-for="item in state.config.lifeSoFar || []" class="my-2">
-                            <span class="text-lg">{{ item }}</span>
+                            <span class="text-lg">{{ item.value || item }}</span>
                         </li>
                     </ul>
                 </div>
@@ -183,7 +184,7 @@ onMounted(async () => {
                     <h2 class="text-xl flex"><HeartIcon class="mr-2"/> lover of ...</h2>
                     <ul class="list-disc ml-6">
                         <li v-for="item in state.config.loverOf || []" class="my-2">
-                            <span class="text-lg">{{ item }}</span>
+                            <span class="text-lg">{{ item.value || item }}</span>
                         </li>
                     </ul>
                 </div>
@@ -191,7 +192,7 @@ onMounted(async () => {
                     <h2 class="text-xl flex"><LostIcon class="mr-2"/> lost in ...</h2>
                     <ul class="list-disc ml-6">
                         <li v-for="item in state.config.lostIn || []" class="my-2">
-                            <span class="text-lg">{{ item }}</span>
+                            <span class="text-lg">{{ item.value || item }}</span>
                         </li>
                     </ul>
                 </div>
