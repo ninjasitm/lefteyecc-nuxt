@@ -214,3 +214,10 @@ ul.list-social {
 .router-link-active {
 	color: $theme-primary;
 }
+
+@media (max-width: 1024px) {
+	.constrained.container {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+}

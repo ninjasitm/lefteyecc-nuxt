@@ -115,19 +115,19 @@ onMounted(async () => {
     <template v-else>
         <header class="masthead z-1">
             <div class="constrained container h-full mx-auto">
-                <div class="grid grid-cols-[40%_60%] sm:grid-cols 1 h-full">
+                <div class="grid lg:grid-cols-[40%_60%] sm:grid-cols-1 h-full">
                     <div
                         class="flex my-auto items-end justify-start h-full"
                         style="z-index: 2"
                     >
                         <div class="header-content">
-                            <h1 style="height: 56px">
+                            <h1 style="height: 56px" class="text-5xl leading-9">
                                 <Transition name="slide-fade">
                                     <span v-if="state?.showCurrentHeader">{{ state.config.title.value || state.config.title }}!</span>
                                 </Transition>
                             </h1>
                             <p
-                                class="mt-6 text-sm mr-3 text-inherit"
+                                class="mt-6 text-3xl lg:text-sm mr-3 text-inherit"
                                 v-html="state.config.description || 'Missing Description'"
                             ></p>
                         </div>
@@ -171,7 +171,7 @@ onMounted(async () => {
             <p v-html="state.config.body || 'Missing Body'"></p>
         </div>
         <div v-if="state.config.lifeSoFar || state.config.loverOf || state.config.lostIn" class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-6">
-            <div class="grid grid-flow-col auto-cols-max sm:grid-cols-1 gap-4 mt-9">
+            <div class="grid md:grid-flow-col md:auto-cols-max sm:grid-cols-1 gap-4 mt-9">
                 <div>
                     <h2 class="text-xl flex"><TimeIcon class="mr-2"/>life so far ...</h2>
                     <ul class="list-disc ml-6">
