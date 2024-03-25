@@ -4,7 +4,16 @@ import path from 'node:path';
 
 export default defineNuxtConfig({
   ssr: true,
-  devtools: { enabled: true },
+  devtools: {
+    enabled: false,
+    timeline: {
+      enabled: true
+    }
+  },
+
+  tailwindcss: {
+    exposeConfig: true
+  },
 
   nitro: {
     preset: "cloudflare-pages"
@@ -52,5 +61,6 @@ export default defineNuxtConfig({
       // const targetDir = path.join(nitro.options.output.serverDir, 'emails');
       // cpSync('./emails', targetDir, { recursive: true });
     }
-  }
+  },
+  plugins: []
 })

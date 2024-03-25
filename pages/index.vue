@@ -9,12 +9,14 @@ import useModalHelper from "~/composables/modal-helper";
 import HeartIcon from "~icons/mdi/heart";
 import LostIcon from "~icons/mdi/chart-bubble";
 import TimeIcon from "~icons/mdi/timer-sand";
+import ChevronRight from "~icons/mdi/chevron-right";
+import PostCard from "~/components/PostCard.vue";
 // import VuePictureSwipe from 'vue3-picture-swipe';
 
 
 const config = useRuntimeConfig();
 const { parseProperties } = useJsonHelper();
-const { getOne } = useApiHelper();
+const { getOne, getAll } = useApiHelper();
 const { showImageModal, closeModal, homePhotos, homePhotoImage } = useModalHelper({
     modalRef: 'homePhotos',
     imageRef: 'homePhotoImage'
@@ -28,6 +30,7 @@ interface State {
     config: any;
     photos: any[];
     photosChunked: any[];
+    currentPhoto?: any;
 }
 
 const state: State = reactive({
@@ -45,15 +48,16 @@ const state: State = reactive({
     photos: computed((): any[] => {
         return state.config.photos?.map((photo: any) => {
             const url = (photo instanceof Object ? photo.url || photo.value || photo.photos : photo) || '';
-            return {
+            return Object.assign(photo instanceof Object ? photo : {}, {
                 src: config.public.cdnBase + url.replace(/^\//gm, ''),
                 thumbnail: config.public.cdnBase + url.replace(/^\//gm, ''),
-            }
+            });
         });
     }),
     photosChunked: computed((): any[] => {
-        return Sugar.Array.inGroups(state.photos, 4);
-    })
+        return Sugar.Array.inGroups(state.photos, 3);
+    }),
+    currentPhoto: null
 });
 
 /**
@@ -89,10 +93,35 @@ const state: State = reactive({
 /**
  * Fetch the home page content through the API
  */
+async function onGetPosts(): Promise<void> {
+    state.posts = await getAll(`posts`, { limit: 3 });
+}
+
+/**
+ * Fetch the home page content through the API
+ */
 async function loadData(): Promise<void> {
     state.config = await getOne(`pageHome/${config.public.homeId}`);
     parseProperties(state.config, ['titles', 'photos', 'lifeSoFar', 'lostIn', 'loverOf']);
     state.isLoading = false;
+}
+
+/**
+ * Show the image modal
+ * @param image
+ * @returns void
+ */
+function onShowImageModal(image: any) {
+    state.currentPhoto = image;
+    showImageModal(image.src);
+}
+
+/**
+ * Close the modal
+ */
+function onCloseModal() {
+    closeModal();
+    state.currentPhoto = null;
 }
 
 onMounted(async () => {
@@ -107,41 +136,57 @@ onMounted(async () => {
     // state.photos = extractPhotos(await getAlbum());
     // fetchGooglePhotosAlbum();
     await loadData();
+    await onGetPosts();
 });
 
 </script>
 <template>
     <NuxtLoadingIndicator v-if="state.isLoading" />
     <template v-else>
-        <header class="masthead z-1">
-            <div class="constrained container h-full mx-auto">
-                <div class="grid lg:grid-cols-[40%_60%] sm:grid-cols-1 h-full">
+        <div class="order-first flex flex-col w-full align-center justify-center my-8 visible lg:hidden text-center">
+
+            <h1
+                style="height: 56px"
+                class="text-5xl leading-9"
+            >
+                <Transition name="slide-fade">
+                    <span v-if="state?.showCurrentHeader">{{ state.config.title.value || state.config.title }}!</span>
+                </Transition>
+            </h1>
+        </div>
+        <header class="masthead z-1 flex">
+            <div class="constrained container lg:h-full mx-auto px-[0px_!important] lg:px-[30px]">
+                <div class="grid lg:grid-cols-[40%_60%] sm:grid-cols-1 lg:h-full">
                     <div
-                        class="flex my-auto items-end justify-start h-full"
+                        class="flex items-end justify-start py-[30px] lg:h-full order-last lg:order-first bg-[#091a28] lg:bg-[transparent]"
                         style="z-index: 2"
                     >
-                        <div class="header-content">
-                            <h1 style="height: 56px" class="text-5xl leading-9">
+                        <div class="header-content lg:mt-[initial] lg:mb-[100px] grow">
+                            <h1
+                                style="height: 56px"
+                                class="text-5xl leading-9 invisible lg:visible h-0 lg:h-[56px] hidden lg:block"
+                            >
                                 <Transition name="slide-fade">
                                     <span v-if="state?.showCurrentHeader">{{ state.config.title.value || state.config.title }}!</span>
                                 </Transition>
                             </h1>
                             <p
-                                class="mt-6 text-3xl lg:text-sm mr-3 text-inherit"
+                                class="mt-6 text-3xl lg:text-sm mr-3 text-inherit px-6 lg:px-[initial]"
                                 v-html="state.config.description || 'Missing Description'"
                             ></p>
                         </div>
                     </div>
-                    <div class="h-full my-auto banner-items-container">
+                    <div class="lg:h-full my-auto banner-items-container order-first lg:order-last">
                         <div
                             id="banner-items"
                             class="carousel slide"
                             data-ride="carousel"
                             data-pause="hover"
                         >
+
                             <div
                                 id="banner-items-list"
-                                class="carousel-inner"
+                                class="carousel-inner h-[400px] lg:h-[500px]"
                             >
                                 <div
                                     v-for="({ image, title, description }, index) in state.bannerItems"
@@ -151,9 +196,9 @@ onMounted(async () => {
         backgroundSize: '100% auto'
     }"
                                 >
-                                    <div class="card banner-item flex column">
+                                    <div class="card banner-item flex column lg:ml-6">
                                         <div class="card-body">
-                                            <p class="card-text">
+                                            <p class="card-text px-6 lg:px-[initial] mb-6 lg:mb-[initial]">
                                             <h5 class="card-title text-4xl">{{ title }}</h5>
                                             <p class="card-text">{{ description }}</p>
                                             </p>
@@ -166,32 +211,60 @@ onMounted(async () => {
                 </div>
             </div>
         </header>
-        <div v-if="state.config.body" class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-6">
+        <div
+            v-if="state.config.body"
+            class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-8"
+        >
             <h1 class="text-2xl">about</h1>
             <p v-html="state.config.body || 'Missing Body'"></p>
         </div>
-        <div v-if="state.config.lifeSoFar || state.config.loverOf || state.config.lostIn" class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-6">
+        <div
+            v-if="state.config.lifeSoFar || state.config.loverOf || state.config.lostIn"
+            class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-8"
+        >
+            <h2 class="text-2xl flex">timeline <NuxtLink
+                    to="/timeline"
+                    class="text-2xl flex text-primary ml-3"
+                >vue full
+                    <ChevronRight class="animate-pulse" />
+                </NuxtLink>
+            </h2>
             <div class="grid md:grid-flow-col md:auto-cols-max sm:grid-cols-1 gap-4 mt-9">
                 <div>
-                    <h2 class="text-xl flex"><TimeIcon class="mr-2"/>life so far ...</h2>
+                    <h2 class="text-xl flex">
+                        <TimeIcon class="mr-2" />life so far ...
+                    </h2>
                     <ul class="list-disc ml-6">
-                        <li v-for="item in state.config.lifeSoFar || []" class="my-2">
+                        <li
+                            v-for="item in state.config.lifeSoFar || []"
+                            class="my-2"
+                        >
                             <span class="text-lg">{{ item.value || item.lifeSoFar || item }}</span>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 class="text-xl flex"><HeartIcon class="mr-2"/> lover of ...</h2>
+                    <h2 class="text-xl flex">
+                        <HeartIcon class="mr-2" /> lover of ...
+                    </h2>
                     <ul class="list-disc ml-6">
-                        <li v-for="item in state.config.loverOf || []" class="my-2">
-                            <span class="text-lg">{{ item.value ||item.loverOf || item }}</span>
+                        <li
+                            v-for="item in state.config.loverOf || []"
+                            class="my-2"
+                        >
+                            <span class="text-lg">{{ item.value || item.loverOf || item }}</span>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 class="text-xl flex"><LostIcon class="mr-2"/> lost in ...</h2>
+                    <h2 class="text-xl flex">
+                        <LostIcon class="mr-2" /> lost in ...
+                    </h2>
                     <ul class="list-disc ml-6">
-                        <li v-for="item in state.config.lostIn || []" class="my-2">
+                        <li
+                            v-for="item in state.config.lostIn || []"
+                            class="my-2"
+                        >
                             <span class="text-lg">{{ item.value || item.lostIn || item }}</span>
                         </li>
                     </ul>
@@ -199,16 +272,37 @@ onMounted(async () => {
             </div>
         </div>
         <div
+            v-if="state.posts?.data?.length"
+            class="mt-8 constrained container mx-auto lg:px-0 sm:px-6 z-[1]"
+        >
+            <h2 class="text-2xl flex">recent content <NuxtLink
+                    to="/content"
+                    class="text-2xl flex ml-2 text-primary"
+                >vue all
+                    <ChevronRight class="animate-pulse" />
+                </NuxtLink>
+            </h2>
+            <div class="w-full lg:columns-2 lg:grid-cols-2 grid columns-1 grid-cols-1 gap-4 mt-3">
+                <PostCard
+                    v-for="post in state.posts.data"
+                    tag="a"
+                    :post="post"
+                    :index="post.id"
+                >
+                </PostCard>
+            </div>
+        </div>
+        <div
             v-if="state.photos.length"
-            class="flex flex-col mt-6 constrained container mx-auto lg:px-0 sm:px-6 z-[1]"
+            class="flex flex-col mt-8 constrained container mx-auto lg:px-0 sm:px-6 z-[1]"
         >
             <h2 class="text-2xl">recent photos</h2>
-            <div class="w-full lg:columns-3 sm:columns-2 gap-4 mt-3">
+            <div class="w-full lg:columns-3 lg:grid-cols-3 grid columns-2 grid-cols-2 gap-4 mt-3">
                 <!-- <div v-for="column in state.posts"> -->
                 <div
                     v-for="image in state.photos"
                     class="relative cursor-pointer py-4 px-1 inline-block w-full group md:block mb-0 sm:mb-0 mr-6 rounded-lg transform group-hover:translate-x-0 group-hover:shadow group-hover:translate-y-0 transition duration-700 ease-out overflow-hidden"
-                    @click="showImageModal(image.src)"
+                    @click="onShowImageModal(image)"
                 >
                     <img
                         class="w-full h-full rounded-lg transform group-hover:scale-105 transition duration-700 ease-out cursor-pointer object-cover"
@@ -229,25 +323,47 @@ onMounted(async () => {
         <div
             ref="homePhotos"
             class="hs-overlay fixed hidden size-full top-0 start-0 z-[10000] overflow-x-hidden overflow-y-auto left-0
-                w-screen h-screen bg-black/70 flex
+                w-screen h-screen bg-white/70 flex
                 justify-center items-center"
+            style="background-color: rgba(0,0,0,0.9)"
         >
-            <div class="relative hs-overlay-open:mt-0 hs-overlay-open hs-overlay-open:duration-500 mt-10 opacity-0 transition-all max-w-full">
+            <div class="relative hs-overlay-open:mt-0 hs-overlay-open hs-overlay-open:duration-500 mt-10 opacity-0 transition-all w-full flex flex-wrap h-full px-6 justify-center aligfn-center">
 
                 <!-- The close button -->
-                <a
-                    class="fixed z-[10000] top-6 right-8 text-5xl font-bold cursor-pointer"
-                    style="color: #fff"
-                    @click="closeModal"
+                <div class="flex-initial h-20 flex justify-end w-full lg:pr-6">
+                    <a
+                        class="z-[10000] top-6 right-8 text-5xl font-bold cursor-pointer text-right"
+                        style="color: #fff"
+                        @click="onCloseModal"
+                    >
+                        ×
+                    </a>
+                </div>
+                <div class="flex-grow w-full flex justify-center">
+                    <!-- A big image will be displayed here -->
+                    <img
+                        ref="homePhotoImage"
+                        class="max-w-[90vw] max-h-[80vh] lg:max-h-[66vh] object-cover"
+                    />
+                </div>
+                <div
+                    v-if="(state.currentPhoto instanceof Object)"
+                    class="flex-initial w-full lg:max-w-[768px] flex flex-col justify-start align-center lg:max-h-[30vh]"
                 >
-                    ×
-                </a>
-
-                <!-- A big image will be displayed here -->
-                <img
-                    ref="homePhotoImage"
-                    class="max-w-[90vw] max-h-[90vh] object-cover"
-                />
+                    <h2
+                        v-if="state.currentPhoto.location"
+                        class="text-2xl text-center lg:text-left mt-3"
+                    >{{ state.currentPhoto.location }}</h2>
+                    <h3
+                        v-if="state.currentPhoto.dateTime"
+                        class="text-xl text-center lg:text-left mt-3"
+                    >{{ state.currentPhoto.dateTime }}</h3>
+                    <p
+                        v-if="state.currentPhoto.description"
+                        class="text-center lg:text-left text-small"
+                        v-html="state.currentPhoto.description"
+                    ></p>
+                </div>
             </div>
         </div>
     </template>
@@ -264,4 +380,4 @@ onMounted(async () => {
         width: 100%;
     }
 }
-</style>~/composables/modal-helper
+</style>

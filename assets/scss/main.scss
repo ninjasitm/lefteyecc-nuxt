@@ -13,6 +13,7 @@
 @import "location.scss";
 @import "bootstrap-overrides.scss";
 @import "fonts.scss";
+@import "pretty-timeline/dist/style.css";
 
 * {
 	transition: all 150ms cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -219,5 +220,11 @@ ul.list-social {
 	.constrained.container {
 		padding-left: 30px;
 		padding-right: 30px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.lg\:block {
+		display: block !important;
 	}
 }

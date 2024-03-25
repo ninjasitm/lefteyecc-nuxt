@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import { useBrowserLocation } from "@vueuse/core";
+const { origin } = useBrowserLocation();
+
+const details = {
+	title: "Malcolm Paul",
+	description:
+		"Malcolm Paul is a software engineer, entrepreneur, and founder of NITM.",
+	image:
+		"https://cdn.lefteye.cc/malcolmpaul-me-lefteye-cc%2Fproduction%2Fimages%2Fhero-image.webp",
+};
+
 useHead({
 	title: "Malcolm Paul",
 	meta: [
@@ -12,14 +23,17 @@ useHead({
 });
 
 useSeoMeta({
-	title: "Malcolm Paul",
-	ogTitle: "Malcolm Paul",
-	description:
-		"Malcolm Paul is a software engineer, entrepreneur, and founder of NITM.",
-	ogDescription:
-		"Malcolm Paul is a software engineer, entrepreneur, and founder of NITM.",
-	ogImage:
-		"https://cdn.lefteye.cc/malcolmpaul-me-lefteye-cc%2Fproduction%2Fimages%2Fhero-image.webp",
+	lang: "en",
+	icon: "",
+	title: details.title,
+	description: details.description,
+	ogUrl: origin,
+	ogTitle: details.title,
+	ogImage: details.image,
+	ogDescription: details.description,
+	twitterTitle: details.title,
+	twitterDescription: details.description,
+	twitterImage: details.image,
 	twitterCard: "summary_large_image",
 });
 </script>

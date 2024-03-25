@@ -3,7 +3,7 @@ import Sugar from "sugar";
 import { useJsonHelper } from "~/composables/json-helper";
 import { useApiHelper } from "~/composables/api-helper";
 import SearchIcon from "~icons/mdi/magnify";
-// import VuePictureSwipe from 'vue3-picture-swipe';
+import PostCard from "~/components/PostCard.vue";
 
 const config = useRuntimeConfig();
 const { parseProperties } = useJsonHelper();
@@ -104,12 +104,12 @@ onMounted(async () => {
 		<div class="constrained container mx-auto mt-6">
 			<div class="grid grid-cols-1 sm:grid-cols">
 				<div class="mt-6 my-auto items-end justify-start" style="z-index: 2">
-					<h1 class="text-4xl">
+					<h1 class="text-4xl text-center lg:text-left">
 						{{ state.config.title }}
 					</h1>
 					<p
 						v-html="state.config.description || 'Missing Description'"
-						class="mt-3 text-sm mr-3 text-inherit"
+						class="mt-3 text-sm mr-3 text-inherit text-center lg:text-left"
 					></p>
 				</div>
 			</div>
@@ -138,46 +138,16 @@ onMounted(async () => {
 		</div>
 		<div
 			v-if="state.posts.data.length"
-			class="mt-6 constrained container mx-auto lg:px-0 sm:px-6 z-[1]"
+			class="grid grid-cols-1 mt-6 constrained container mx-auto lg:px-0 sm:px-6 z-[1]"
 		>
-			<a
+			<PostCard
 				v-for="post in state.posts.data"
-				class="w-full lg:max-w-full flex cursor-pointer hover:shadow-md border-t border-r border-b border-l border-gray-200 dark:border-gray-900 rounded-lg"
-				:href="post.link || '#'"
+				tag="a"
+				large
+				:post="post"
+				:index="post.id"
 			>
-				<div
-					v-if="post.image"
-					class="col h-48 lg:h-auto w-48 flex-none bg-cover text-center overflow-hidden bg-stone-100"
-					:style="{
-						backgroundColor: `${post.backgroundColor || '#ccc'}`,
-						backgroundImage: `url(${post.image})`,
-					}"
-					:alt="post.title"
-				></div>
-				<div
-					class="grow p-4 flex flex-col justify-between leading-normal bg-white dark:bg-transparent"
-				>
-					<div v-if="post.post_type">
-						<span
-							class="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-							>{{ post.post_type }}</span
-						>
-					</div>
-					<div class="mb-8">
-						<div class="text-gray-900 font-bold text-xl mb-2">
-							{{ post.title }}
-						</div>
-						<p v-html="post.body" class="text-gray-700 text-base"></p>
-					</div>
-					<div class="flex items-center">
-						<span
-							v-for="tag in post.tags"
-							class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-							>#{{ tag }}</span
-						>
-					</div>
-				</div>
-			</a>
+			</PostCard>
 		</div>
 		<div class="mt-6 constrained container mx-auto lg:px-0 sm:px-6 z-[1]">
 			<div class="flex flex-wrap">

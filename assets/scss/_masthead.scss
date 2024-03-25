@@ -13,7 +13,7 @@ header.masthead {
 	background-size: cover;
 	background-repeat: no-repeat;
 	.header-content {
-		margin-bottom: 100px;
+		// margin-bottom: 100px;
 
 		text-align: center;
 		.btn.signup {
@@ -42,13 +42,12 @@ header.masthead {
 		height: 100%;
 		width: 100%;
 		.carousel-inner {
-			height: 100%;
 			overflow: visible;
 			.carousel-item {
+				height: 100%;
 				background-repeat: no-repeat;
 				background-size: contain;
 				background-position: right bottom;
-				height: 100%;
 				animation: fadein 1250ms ease-in-out;
 				overflow: visible;
 				.card {
@@ -80,7 +79,7 @@ header.masthead {
 	@media (min-width: 1024px) {
 		height: 500px;
 		min-height: 500px;
-		max-height: 600px;
+		max-height: max-content;
 		padding-top: 0;
 		padding-bottom: 0;
 
@@ -91,21 +90,23 @@ header.masthead {
 				font-size: inherit;
 			}
 		}
+
+		.carousel {
+			.carousel-inner {
+				height: 100%;
+				.carousel-item {
+				}
+			}
+		}
 	}
 
 	// Medium devices (tablets, less than 992px)
-	@media (max-width: 991.98px) {
-		padding-top: 125px;
-		padding-bottom: 100px;
-		.banner-items-container {
-			position: absolute;
-			z-index: 0;
-			top: 0;
-			left: 0;
-			right: 0;
-			opacity: 0.1;
-			width: 100%;
-			padding: 0px;
+	@media (max-width: 1023px) {
+		padding-top: 0px;
+		padding-bottom: 0px;
+
+		.constrained.container {
+			max-height: max-content;
 		}
 
 		.banner-items-container::after {

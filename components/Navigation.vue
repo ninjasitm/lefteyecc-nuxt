@@ -18,10 +18,10 @@ const state = reactive({
 			label: "content",
 			to: { name: "content" },
 		},
-		// {
-		//     label: 'ideas',
-		//     to: '/ideas',
-		// },
+		{
+			label: "timeline",
+			to: "/timeline",
+		},
 		{
 			label: "now",
 			to: { name: "now" },
@@ -55,7 +55,7 @@ function onToggleMenu() {
 			</NuxtLink>
 			<div class="spacer grow"></div>
 			<!-- primary nav -->
-			<div class="grow hidden md:flex justify-end">
+			<div class="menu-content grow flex justify-end">
 				<NuxtLink
 					v-for="item in state.menu"
 					:key="item.label"
@@ -111,7 +111,7 @@ function onToggleMenu() {
 					:key="item.label"
 					:to="item.to"
 					@click="onToggleMenu"
-					class="text-5xl leading-loose block py-2 px-4 hover:bg-gray-200"
+					class="text-5xl leading-loose block py-2 px-4 hover:bg-gray-200 hover:text-primary"
 					>{{ item.label }}</NuxtLink
 				>
 			</div>
@@ -138,6 +138,7 @@ function onToggleMenu() {
 	// bottom: 0;
 	// right: 0;
 	// left: 0;
+	transform: translateY(0px);
 }
 
 #navbarResponsive .mobile-menu-content {
@@ -145,13 +146,24 @@ function onToggleMenu() {
 	flex-direction: column;
 	align-items: stretch;
 	justify-content: center;
-	transition: all 300ms linear;
+	transition: all 750ms ease-in-out, opacity 1500ms ease-in-out;
 	opacity: 0;
 	height: 0px;
 	z-index: -1;
+	transform: translateY(-1000px);
 }
 #navbarResponsive .mobile-menu-content > a {
 	// font-size: 2rem;
 	// line-height: 3rem;
+}
+
+.menu-content {
+	display: none;
+}
+
+@media (min-width: 1024px) {
+	.menu-content {
+		display: flex !important;
+	}
 }
 </style>
