@@ -50,11 +50,11 @@ onMounted(async () => {
 			<div class="mb-6">
 				<template v-for="section in state.config.uses">
 					<h2 class="text-2xl mt-6">{{ section.section }}</h2>
-					<div class="flex mt-3">
+					<div class="flex mt-3 flex-wrap">
 						<a
 							v-for="item in section.items"
 							href="#"
-							class="transition-all transition-duration-300 bg-primary hover:bg-secondary hover:text-white font-semibold py-2 px-4 rounded-full mr-3"
+							class="transition-all transition-duration-300 bg-primary hover:bg-secondary hover:text-white font-semibold py-2 px-4 rounded-full mr-3 mb-3"
 						>
 							{{ item.title }}
 						</a>
