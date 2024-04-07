@@ -54,7 +54,7 @@ onMounted(async () => {
 						<a
 							v-for="item in section.items"
 							href="#"
-							class="transition-all transition-duration-300 bg-primary hover:bg-secondary hover:text-white font-semibold py-2 px-4 rounded-full mr-3 mb-3"
+							class="transition-all transition-duration-300 bg-primary hover:bg-secondary text-white font-semibold py-2 px-4 rounded-full mr-3 mb-3"
 						>
 							{{ item.title }}
 						</a>
