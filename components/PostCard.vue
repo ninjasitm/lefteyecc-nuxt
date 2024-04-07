@@ -43,7 +43,7 @@ try {
 	<component
 		:is="props.tag === 'link' || props.tag === 'a' ? 'a' : 'div'"
 		:class="{
-			'w-full h-auto lg:max-w-full flex lg:flex-row cursor-pointer hover:shadow-md border-t border-r border-b border-l border-gray-200 dark:border-gray-600 rounded-lg': true,
+			'w-full h-auto lg:max-w-full flex flex-col lg:flex-row cursor-pointer hover:shadow-md border-t border-r border-b border-l border-gray-200 dark:border-gray-600 rounded-lg': true,
 			'border-l-none': post.image !== null,
 			'flex-col': mode === 'vertical',
 		}"
@@ -51,7 +51,7 @@ try {
 	>
 		<div
 			v-if="post.image"
-			class="col h-auto w-[96px] flex-none bg-cover overflow-hidden bg-white/75 rounded-b-none rounded-r-none rounded-t-lg rounded-l-lg"
+			class="col lg:h-auto w-full h-[192px] flex-none bg-cover overflow-hidden bg-white/75 rounded-b-none rounded-r-none rounded-t-lg rounded-l-lg"
 			:class="{
 				'lg:w-[192px]': props.large,
 				'lg:w-[125px]': !props.large,
