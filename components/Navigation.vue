@@ -111,7 +111,7 @@ function onToggleMenu() {
 					:key="item.label"
 					:to="item.to"
 					@click="onToggleMenu"
-					class="text-5xl leading-loose block py-2 px-4 hover:bg-gray-200 hover:text-primary"
+					class="text-3xl leading-loose block py-2 px-4 hover:bg-gray-200 hover:text-primary"
 					>{{ item.label }}</NuxtLink
 				>
 			</div>
