@@ -1,12 +1,15 @@
 import type { Config } from 'tailwindcss';
-// import colors from 'tailwindcss/colors';
+import * as colors from 'tailwindcss/colors';
 
 export default <Partial<Config>>{
     darkMode: 'class',
     theme: {
         colors: {
-            primary: '#fecb3b',
-            secondary: '#141c3d',
+            primary: '#25A18E',
+            secondary: '#302425',
+            'primary-element': '#25A18E',
+            'primary-element-hover': '#302425',
+            ...colors,
             // 'blue': '#1fb6ff',
             // 'purple': '#7e5bef',
             // 'pink': '#ff49db',

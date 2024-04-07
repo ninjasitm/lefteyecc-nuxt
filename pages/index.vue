@@ -6,6 +6,7 @@ import Sugar from 'sugar';
 import { useJsonHelper } from '~/composables/json-helper';
 import { useApiHelper } from '~/composables/api-helper';
 import useModalHelper from "~/composables/modal-helper";
+import { useContentHelper } from '~/composables/content-helper';
 import HeartIcon from "~icons/mdi/heart";
 import LostIcon from "~icons/mdi/chart-bubble";
 import TimeIcon from "~icons/mdi/timer-sand";
@@ -17,6 +18,7 @@ import PostCard from "~/components/PostCard.vue";
 const config = useRuntimeConfig();
 const { parseProperties } = useJsonHelper();
 const { getOne, getAll } = useApiHelper();
+const { getMediaUrl } = useContentHelper();
 const { showImageModal, closeModal, homePhotos, homePhotoImage } = useModalHelper({
     modalRef: 'homePhotos',
     imageRef: 'homePhotoImage'
@@ -31,6 +33,7 @@ interface State {
     photos: any[];
     photosChunked: any[];
     currentPhoto?: any;
+    posts?: any;
 }
 
 const state: State = reactive({
@@ -49,8 +52,8 @@ const state: State = reactive({
         return state.config.photos?.map((photo: any) => {
             const url = (photo instanceof Object ? photo.url || photo.value || photo.photos : photo) || '';
             return Object.assign(photo instanceof Object ? photo : {}, {
-                src: config.public.cdnBase + url.replace(/^\//gm, ''),
-                thumbnail: config.public.cdnBase + url.replace(/^\//gm, ''),
+                src: getMediaUrl(u.l),
+                thumbnail: getMediaUrl(u.l),
             });
         });
     }),
@@ -282,9 +285,10 @@ onMounted(async () => {
                     <ChevronRight class="animate-pulse" />
                 </NuxtLink>
             </h2>
-            <div class="w-full lg:columns-2 lg:grid-cols-2 grid columns-1 grid-cols-1 gap-4 mt-3">
+            <div class="w-full lg:columns-2 lg:grid-cols-1 grid columns-1 grid-cols-1 gap-4 mt-3">
                 <PostCard
                     v-for="post in state.posts.data"
+                    large
                     tag="a"
                     :post="post"
                     :index="post.id"
@@ -293,7 +297,7 @@ onMounted(async () => {
             </div>
         </div>
         <div
-            v-if="state.photos.length"
+            v-if="state.photos?.length"
             class="flex flex-col mt-8 constrained container mx-auto lg:px-0 sm:px-6 z-[1]"
         >
             <h2 class="text-2xl">recent photos</h2>

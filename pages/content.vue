@@ -10,6 +10,7 @@ const { parseProperties } = useJsonHelper();
 const { getOne, getAll } = useApiHelper();
 
 interface Post {
+	id: string;
 	title: string;
 	post_type: string;
 	body: string;
@@ -142,8 +143,9 @@ onMounted(async () => {
 		>
 			<PostCard
 				v-for="post in state.posts.data"
-				tag="a"
 				large
+				tag="a"
+				class="mb-3"
 				:post="post"
 				:index="post.id"
 			>

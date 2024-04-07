@@ -5,7 +5,7 @@ import path from 'node:path';
 export default defineNuxtConfig({
   ssr: true,
   devtools: {
-    enabled: false,
+    enabled: true,
     timeline: {
       enabled: true
     }

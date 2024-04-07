@@ -50,11 +50,15 @@ onMounted(async () => {
 			<div class="mb-6">
 				<template v-for="section in state.config.uses">
 					<h2 class="text-2xl mt-6">{{ section.section }}</h2>
-					<ul class="list-disc list-inside">
-						<li v-for="item in section.items" class="mt-3">
+					<div class="flex mt-3">
+						<a
+							v-for="item in section.items"
+							href="#"
+							class="transition-all transition-duration-300 bg-primary hover:bg-secondary hover:text-white font-semibold py-2 px-4 rounded-full mr-3"
+						>
 							{{ item.title }}
-						</li>
-					</ul>
+						</a>
+					</div>
 				</template>
 			</div>
 			<a href="https://uses.tech/" target="_blank"
