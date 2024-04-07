@@ -7,6 +7,7 @@ import { useContentHelper } from "~/composables/content-helper";
 import { PrettyTimeline } from "pretty-timeline";
 import { useDateFormat } from "@vueuse/core";
 import { theme } from "#tailwind-config";
+import { Timeline } from "vue3-cute-component";
 
 // import VuePictureSwipe from 'vue3-picture-swipe';
 const config = useRuntimeConfig();
@@ -27,7 +28,7 @@ const state: State = reactive({
 	config: {},
 	timeline: computed(() => {
 		const timeline = new Sugar.Array(state.config.data || []);
-		return Object.values(
+		const values = Object.values(
 			timeline
 				.map((item: any) => {
 					const year = useDateFormat(item.date, "YYYY").value;
@@ -43,12 +44,14 @@ const state: State = reactive({
 					};
 				})
 				.groupBy((event: any) => event.year)
-		).map((group: any) => {
-			const key = Object.keys(group)[0];
+		)[0];
+		console.log("[Timeline]: Values", Object.values(values));
+		return Object.keys(values).map((key: string) => {
+			console.log("[Timeline]: Group", key, values[key]);
 			return {
 				year: key,
 				title: key,
-				list: Object.values(group[key]),
+				list: Object.values(values[key]),
 			};
 		});
 	}),
@@ -65,6 +68,7 @@ async function loadData(): Promise<void> {
 
 onMounted(async () => {
 	await loadData();
+	console.log("[Timeline]: Timeline", state.timeline);
 });
 </script>
 <template>
