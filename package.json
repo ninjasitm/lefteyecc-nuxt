@@ -35,5 +35,6 @@
     "nitro-cloudflare-dev": "^0.0.7",
     "unplugin-icons": "^0.18.5",
     "wrangler": "^3.28.3"
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
