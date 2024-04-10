@@ -43,7 +43,7 @@ try {
 	<component
 		:is="props.tag === 'link' || props.tag === 'a' ? 'a' : 'div'"
 		:class="{
-			'w-full h-auto lg:max-w-full flex flex-col lg:flex-row cursor-pointer hover:shadow-md border-t border-r border-b border-l border-gray-200 dark:border-gray-600 rounded-lg': true,
+			'w-full h-auto lg:max-w-full flex flex-col lg:flex-row cursor-pointer bg-white/15 hover:shadow-md border-t border-r border-b border-l border-none dark:border-gray-600 rounded-lg': true,
 			'border-l-none': post.image !== null,
 			'flex-col': mode === 'vertical',
 		}"
@@ -64,7 +64,7 @@ try {
 			/>
 		</div>
 		<div
-			class="grow p-4 flex flex-col justify-between leading-normal bg-white dark:bg-transparent"
+			class="grow p-4 flex flex-col justify-between leading-normal bg-transparent"
 		>
 			<div>
 				<span

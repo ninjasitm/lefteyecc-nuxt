@@ -161,10 +161,10 @@ onMounted(async () => {
             <div class="constrained container lg:h-full mx-auto px-[0px_!important] lg:px-[30px]">
                 <div class="grid lg:grid-cols-[40%_60%] sm:grid-cols-1 lg:h-full">
                     <div
-                        class="flex items-end justify-start py-[30px] lg:h-full order-last lg:order-first bg-[#091a28] lg:bg-[transparent]"
+                        class="flex items-end justify-start py-4 lg:py-[30px] lg:h-full order-last lg:order-first bg-vertical lg:bg-[transparent]"
                         style="z-index: 2"
                     >
-                        <div class="header-content lg:mt-[initial] lg:mb-[100px] grow">
+                        <div class="header-content mt-10 lg:mt-[initial] lg:mb-[100px] grow">
                             <h1
                                 style="height: 56px"
                                 class="text-5xl leading-9 invisible lg:visible h-0 lg:h-[56px] hidden lg:block"
@@ -189,18 +189,19 @@ onMounted(async () => {
 
                             <div
                                 id="banner-items-list"
-                                class="carousel-inner h-[400px] lg:h-[500px]"
+                                class="carousel-inner h-[380px] lg:h-[500px]"
                             >
                                 <div
                                     v-for="({ image, title, description }, index) in state.bannerItems"
                                     class="carousel-item d-flex justify-content-center"
                                     :style="{
         backgroundImage: `url('${image}')`,
-        backgroundSize: '100% auto'
+    backgroundSize: '90% auto',
+        backgroundPosition: 'center',
     }"
                                 >
                                     <div class="card banner-item flex column lg:ml-6">
-                                        <div class="card-body">
+                                        <div class="card-body col">
                                             <p class="card-text px-6 lg:px-[initial] mb-6 lg:mb-[initial]">
                                             <h5 class="card-title text-4xl">{{ title }}</h5>
                                             <p class="card-text">{{ description }}</p>
@@ -216,14 +217,14 @@ onMounted(async () => {
         </header>
         <div
             v-if="state.config.body"
-            class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-8"
+            class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-3 lg:mt-8"
         >
             <h1 class="text-2xl">about</h1>
             <p v-html="state.config.body || 'Missing Body'"></p>
         </div>
         <div
             v-if="state.config.lifeSoFar || state.config.loverOf || state.config.lostIn"
-            class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-8"
+            class="constrained container mx-auto lg:px-0 sm:px-6 z-[1] mt-3 lg:mt-8"
         >
             <h2 class="text-2xl flex">timeline <NuxtLink
                     to="/timeline"

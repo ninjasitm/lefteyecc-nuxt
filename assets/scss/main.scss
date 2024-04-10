@@ -20,6 +20,11 @@
 }
 
 body {
+	background: linear-gradient(
+		to left,
+		$theme-light-primary 0%,
+		$theme-light-secondary 100%
+	);
 	&.loading {
 		nav,
 		header,
@@ -41,6 +46,11 @@ body {
 .dark-mode body,
 .dark body {
 	background-color: $theme-secondary;
+	background: linear-gradient(
+		to left,
+		$theme-tertiary 0%,
+		$theme-secondary 100%
+	);
 	color: $font-color;
 }
 .sepia-mode body,

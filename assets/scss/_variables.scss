@@ -3,17 +3,17 @@
 // Gray and Brand Colors for use across theme
 
 $theme-primary: #25a18e;
-$theme-secondary: #302425;
-$theme-tertiary: #dc2430;
-$theme-light-primary: #f9e5c9;
+$theme-secondary: #091a28;
+$theme-tertiary: darken($theme-secondary, 8%);
+$theme-light-primary: #bdb5b3;
 $theme-light-secondary: #e8e0e1;
 $theme-sepia-primary: #f1e7d0;
 $theme-sepia-secondary: #433422;
 $masthead-primary: #bdb5b3;
 $masthead-secondary: #e8e0e1;
 $masthead-tertiary: lighten($masthead-secondary, 50%);
-$masthead-dark-primary: #404548;
-$masthead-dark-secondary: #302425;
+$masthead-dark-primary: $theme-tertiary;
+$masthead-dark-secondary: $theme-secondary;
 
 $gray-base: #000;
 $gray-darker: lighten($gray-base, 13.5%); // #222

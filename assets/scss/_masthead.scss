@@ -72,6 +72,11 @@ header.masthead {
 					.card-text {
 						font-size: 16px;
 					}
+
+					@media (max-width: 1023px) {
+						transform: translateX(-100px) translateY(110px);
+						text-align: center;
+					}
 				}
 			}
 		}
